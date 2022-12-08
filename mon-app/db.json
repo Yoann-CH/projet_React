@@ -1,0 +1,31 @@
+{
+  "register": [
+    {
+      "username": "yesnac",
+      "password": "YOYO09082002ch+",
+      "id": 1
+    },
+    {
+      "username": "r",
+      "password": "r",
+      "id": 2
+    },
+    {
+      "username": "rr",
+      "password": "rr",
+      "id": 3
+    }
+  ],
+  "login": [
+    {
+      "username": "r",
+      "password": "r",
+      "id": 1
+    },
+    {
+      "username": "r",
+      "password": "r",
+      "id": 2
+    }
+  ]
+}

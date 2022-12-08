@@ -7,7 +7,7 @@ const AuthUserRegister = () => {
         <div class="container">
             <h1>Créer un compte utilisateur</h1>
             <Divider/>
-            <AuthUserForm/>
+            <AuthUserForm />
         </div>
     )
 }
