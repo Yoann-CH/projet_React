@@ -71,9 +71,11 @@ const AuthUserForm = ({login = false}) => {
       users.forEach(i =>{
         if(values.username === i.username && values.password === i.password && verifUser === false){
           openNotificationLoginSucess('topRight');
-          AuthService.login(values.username, values.password);
-          navigate('/home');
           verifUser = true;
+          AuthService.login(values.username, values.password).then(()=>{
+            navigate('/home');
+            window.location.reload();
+          });
         }
       })
       if(verifUser === false){
