@@ -3,11 +3,19 @@ import "../../App.css";
 import { Divider } from 'antd';
 
 const AuthUserLogin = () => {
+    const [users, setUsers] = useState([]);
+
+    useEffect(() => {
+        getallUsers().then((data) => {
+        setUsers(data);
+        });
+    }, [])
+
     return (
         <div class="container">
             <h1>Formulaire d'authentification</h1>
             <Divider/>
-            <AuthUserForm/>
+            <AuthUserForm login={true}/>
         </div>
     )
 }

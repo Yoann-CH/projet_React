@@ -1,5 +1,5 @@
 import { Button, Form, Input } from 'antd';
-const AuthUserForm = () => {
+const AuthUserForm = ({login = false}) => {
   const onFinish = (values) => {
     console.log('Success:', values);
   };
