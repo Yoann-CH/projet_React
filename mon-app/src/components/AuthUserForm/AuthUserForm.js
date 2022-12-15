@@ -1,27 +1,33 @@
 import { Button, Form, Input, notification } from 'antd';
 import AuthService from '../../services/AuthService';
-import { useEffect, useState } from "react";
-import UserService from '../../services/UserService';
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 const AuthUserForm = ({login = false}) => {
 
   let navigate = useNavigate();
 
-  const [users, setUsers] = useState([]);
-
-  useEffect(() =>{
-  UserService.getAllRegister().then((register) =>{
-    setUsers(register.data);
-  })
-  }, [])
-
   const [api, contextHolder] = notification.useNotification();
+
+  const [user, setUser] = useState({});
+
+    useEffect(() =>{
+        const u = JSON.parse(localStorage.getItem('user'));
+        setUser(u);
+        if(!user){
+          if(user.error){
+            openNotificationRegisterError('topRight');
+          }else{
+            openNotificationRegisterSucess('topRight');
+            navigate('/home');
+          }
+        }
+    }, [])
 
   const openNotificationRegisterError = (placement) => {
     api.error({
       message: `Erreur`,
-      description: `Le pseudo renseigné existe déjà! Veuillez en choisir un autre.`,
+      description: `L'utilisateur renseigné existe déjà! Veuillez en choisir un autre.`,
       placement,
     });
   };
@@ -50,39 +56,15 @@ const AuthUserForm = ({login = false}) => {
     });
   };
 
-  console.log(users)
-
   const onFinish = (values) => {
     if(!login){
-      let verifUsername = false;
-      users.forEach(i => {
-        if(values.username === i.username && verifUsername === false){
-          openNotificationRegisterError('topRight');
-          verifUsername = true;
-        }
-      });
-      if(verifUsername === false){
-        openNotificationRegisterSucess('topRight');
-        AuthService.register(values.username, values.password);
-        navigate('/login');
-      }
-    }else{
-      let verifUser = false;
-      users.forEach(i =>{
-        if(values.username === i.username && values.password === i.password && verifUser === false){
-          openNotificationLoginSucess('topRight');
-          verifUser = true;
-          AuthService.login(values.username, values.password).then(()=>{
-            navigate('/home');
-            window.location.reload();
-          });
-        }
+      AuthService.register(values.username, values.password).then(() =>{
+        window.location.reload();
       })
-      if(verifUser === false){
-        openNotificationLoginError('topRight');
-      }
+    }else{
+      AuthService.login(values.username, values.password);
     }
-  };
+  }
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };

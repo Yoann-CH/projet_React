@@ -16,15 +16,14 @@ const AuthMenu = () => {
     }, [])
 
     const BtnLogout = () =>{
-        AuthService.logout(user.id).then(()=>{
-            navigate('/login');
-            window.location.reload();
-        })
+        AuthService.logout();
+        navigate('/login');
+        window.location.reload();
     }
 
     console.log(user)
     return(
-        user === null ?(
+        user === null || user.error ?(    
             <Space>
             <Link to={"/login"}>
               <Button type='primary' shape="round" size={'large'}>S'identifier</Button>
