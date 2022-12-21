@@ -2,9 +2,10 @@ import './App.css';
 import AuthUserLogin from './pages/AuthUserLogin/AuthUserLogin';
 import AuthUserRegister from './pages/AuthUserRegister/AuthUserRegister';
 import Home from './pages/Home/Home';
-import {Layout, Menu} from 'antd';
+import {Layout} from 'antd';
 import { Routes, Route, Link } from "react-router-dom";
 import AuthMenu from './components/AuthMenu/AuthMenu';
+import MatchesMenu from './components/AuthMenu/MatchesMenu';
 const { Header, Content, Footer } = Layout;
 
 function App() {
@@ -17,9 +18,7 @@ function App() {
             <div class='logo'>
             </div>
           </Link>
-          <Menu>
-            
-          </Menu>
+          <MatchesMenu/>
           <AuthMenu/>
         </Header>
         <Content class="content">

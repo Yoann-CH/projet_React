@@ -34,9 +34,6 @@ const AuthMenu = () => {
           </Space>
         ) : (
             <Space>
-                <Link to={"/profil"}>
-                    <Button type='primary' shape="round" size={'large'}>Profil</Button>
-                </Link>
                 <Link>
                     <Button type='primary' shape="round" size={'large'} onClick={BtnLogout}>Déconnexion</Button>
                 </Link>
