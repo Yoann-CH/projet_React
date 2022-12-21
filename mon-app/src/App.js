@@ -6,6 +6,7 @@ import {Layout} from 'antd';
 import { Routes, Route, Link } from "react-router-dom";
 import AuthMenu from './components/AuthMenu/AuthMenu';
 import MatchesMenu from './components/AuthMenu/MatchesMenu';
+import Matches from './pages/Matches/Matches';
 const { Header, Content, Footer } = Layout;
 
 function App() {
@@ -18,14 +19,17 @@ function App() {
             <div class='logo'>
             </div>
           </Link>
-          <MatchesMenu/>
-          <AuthMenu/>
+          <div>
+            <MatchesMenu/>
+            <AuthMenu/>
+          </div>
         </Header>
         <Content class="content">
           <Routes>
             <Route path="/" element={<Home/>}/>
             <Route path="/login" element={<AuthUserLogin/>}/>
             <Route path="/register" element={<AuthUserRegister />} />
+            <Route path="/matches" element={<Matches />} />
             <Route path="*" element={<Home/>} />
           </Routes>
         </Content>

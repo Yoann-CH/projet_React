@@ -1,28 +1,12 @@
 import { Button, Form, Input, notification } from 'antd';
 import AuthService from '../../services/AuthService';
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
 
 const AuthUserForm = ({login = false}) => {
 
   let navigate = useNavigate();
 
   const [api, contextHolder] = notification.useNotification();
-
-  const [user, setUser] = useState({});
-
-    useEffect(() =>{
-        const u = JSON.parse(localStorage.getItem('user'));
-        setUser(u);
-        if(!user){
-          if(user.error){
-            openNotificationRegisterError('topRight');
-          }else{
-            openNotificationRegisterSucess('topRight');
-            navigate('/home');
-          }
-        }
-    }, [])
 
   const openNotificationRegisterError = (placement) => {
     api.error({
@@ -32,13 +16,6 @@ const AuthUserForm = ({login = false}) => {
     });
   };
 
-  const openNotificationRegisterSucess = (placement) => {
-    api.success({
-      message: `Succès`,
-      description: `Votre compte a bien été créé.`,
-      placement,
-    });
-  };
 
   const openNotificationLoginError = (placement) => {
     api.error({
@@ -48,21 +25,28 @@ const AuthUserForm = ({login = false}) => {
     });
   };
 
-  const openNotificationLoginSucess = (placement) => {
-    api.success({
-      message: `Succès`,
-      description: `Vous êtes connectés.`,
-      placement,
-    });
-  };
 
   const onFinish = (values) => {
     if(!login){
-      AuthService.register(values.username, values.password).then(() =>{
-        window.location.reload();
+      AuthService.register(values.username, values.password).then((result) =>{
+        if(result.error){
+          openNotificationRegisterError('topRight');
+        }else{
+          navigate('/login');
+        }
       })
     }else{
-      AuthService.login(values.username, values.password);
+      let verifLogin = false;
+      AuthService.login(values.username, values.password).then((result) =>{
+        verifLogin = true;
+        localStorage.setItem("user", JSON.stringify(result));
+      }).then(()=> {
+        navigate('/home');
+        window.location.reload();
+      })
+      if(!verifLogin){
+        openNotificationLoginError('topRight');
+      }
     }
   }
   const onFinishFailed = (errorInfo) => {

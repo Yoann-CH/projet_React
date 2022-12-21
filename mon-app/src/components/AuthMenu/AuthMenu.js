@@ -23,21 +23,21 @@ const AuthMenu = () => {
 
     console.log(user)
     return(
-        user === null || user.error ?(    
-            <Space>
-            <Link to={"/login"}>
-              <Button type='primary' shape="round" size={'large'}>S'identifier</Button>
-            </Link>
-            <Link to={"/register"}>
-              <Button shape="round" size={'large'}>Créer un compte</Button>
-            </Link>
-          </Space>
+        user === null ?(    
+            <div class="auth-menu">
+                <Space>
+                    <Link to={"/login"}>
+                    <Button type='primary' shape="round" size={'large'}>S'identifier</Button>
+                    </Link>
+                    <Link to={"/register"}>
+                    <Button shape="round" size={'large'}>Créer un compte</Button>
+                    </Link>
+                </Space>
+            </div>
         ) : (
-            <Space>
-                <Link>
-                    <Button type='primary' shape="round" size={'large'} onClick={BtnLogout}>Déconnexion</Button>
-                </Link>
-            </Space>
+            <Link class="auth-menu">
+                <Button type='primary' shape="round" size={'large'} onClick={BtnLogout}>Déconnexion</Button>
+            </Link>
         )
     )
 }
