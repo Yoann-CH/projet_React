@@ -8,7 +8,7 @@ const AuthUserLogin = () => {
         <div class="container">
             <h1>Formulaire d'authentification</h1>
             <Divider/>
-            <AuthUserForm login={true}/>
+            <AuthUserForm login={true} />
         </div>
     )
 }

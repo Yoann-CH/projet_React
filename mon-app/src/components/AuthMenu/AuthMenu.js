@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import AuthService from '../../services/AuthService';
 import { useNavigate } from 'react-router-dom';
 
-const AuthMenu = () => {
+const AuthMenu = ({reloadToken}) => {
     let navigate = useNavigate();
 
     const [user, setUser] = useState({});
@@ -13,7 +13,7 @@ const AuthMenu = () => {
     useEffect(() =>{
         const u = JSON.parse(localStorage.getItem('user'));
         setUser(u);
-    }, [])
+    }, [reloadToken])
 
     const BtnLogout = () =>{
         AuthService.logout();

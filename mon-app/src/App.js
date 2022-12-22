@@ -7,10 +7,12 @@ import { Routes, Route, Link } from "react-router-dom";
 import AuthMenu from './components/AuthMenu/AuthMenu';
 import MatchesMenu from './components/AuthMenu/MatchesMenu';
 import Matches from './pages/Matches/Matches';
+import Match from './pages/Matches/Match';
+import { useState } from 'react';
 const { Header, Content, Footer } = Layout;
 
 function App() {
-
+  const [reloadToken, setReloadToken] = useState(false);
   return(
     <>
       <Layout>
@@ -20,16 +22,17 @@ function App() {
             </div>
           </Link>
           <div>
-            <MatchesMenu/>
-            <AuthMenu/>
+            <MatchesMenu reloadToken/>
+            <AuthMenu reloadToken/>
           </div>
         </Header>
         <Content class="content">
           <Routes>
             <Route path="/" element={<Home/>}/>
             <Route path="/login" element={<AuthUserLogin/>}/>
-            <Route path="/register" element={<AuthUserRegister />} />
+            <Route path="/register" element={<AuthUserRegister/>} />
             <Route path="/matches" element={<Matches />} />
+            <Route path="/match/*" element={<Match />} />
             <Route path="*" element={<Home/>} />
           </Routes>
         </Content>
