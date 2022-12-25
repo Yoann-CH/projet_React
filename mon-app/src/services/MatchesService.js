@@ -32,7 +32,7 @@ class MatchesService {
     }
 
     chooseMove(token, id, turn, move){
-        return fetch(API_URL+"/"+id+"/"+turn, {
+        return fetch(API_URL+"/"+id+"/turns/"+turn, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

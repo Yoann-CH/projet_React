@@ -35,6 +35,10 @@ const MatchesList = () => {
         })
     }
 
+    const join = (id) => {
+        navigate("/match"+"/"+id) 
+    }
+
     return(
         <>
             {contextHolder}
@@ -45,7 +49,11 @@ const MatchesList = () => {
             dataSource={matches}
             renderItem={(item) => (
                 <List.Item>
-                joueur 1 : {item.user1.username}
+                joueur 1 : {item.user1.username} | joueur 2 : {item.user2.username}
+                {
+                    item.winner === undefined ?(<></>) : (<> | gagnant :{item.winner.username}</>)
+                }
+                <Button onClick={join.bind(item._id)}>Rejoindre</Button>
                 </List.Item>
             )}
             />
