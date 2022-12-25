@@ -1,5 +1,5 @@
 import "../../App.css";
-import { Divider, Spin, Card, Row, Col, List } from 'antd';
+import { Divider, Spin, Card, Row, Col, List, notification } from 'antd';
 import { useState,useEffect } from "react";
 import MatchsService from "../../services/MatchsService";
 
@@ -8,6 +8,23 @@ const Match = () => {
     const [match, setMatchs] = useState({});
     const user = JSON.parse(localStorage.getItem('user'));
     const [loading, setLoading] = useState(true);
+    const [api, contextHolder] = notification.useNotification();
+
+    const openNotificationMatchErrorMoveAlready = (placement) => {
+        api.error({
+        message: `Erreur`,
+        description: `Vous avez déjà choisi votre coup ! Attendez votre adversaire.`,
+        placement,
+        });
+    };
+
+    const openNotificationMatchErrorEnd = (placement) => {
+        api.error({
+        message: `Erreur`,
+        description: `Le match est fini !Vous ne pouvez plus choisir de coup.`,
+        placement,
+        });
+    };
 
     useEffect(() =>{
         const id = window.location.pathname.split("/match/").join("");
@@ -30,21 +47,40 @@ const Match = () => {
 
     const chooseRock = () => {
         const id = window.location.pathname.split("/match/").join("");
-        MatchsService.chooseMove(user.token, id, turns, "rock");
+        MatchsService.chooseMove(user.token, id, turns, "rock").then((result) =>{
+            if(result.user ==="move already given"){
+                openNotificationMatchErrorMoveAlready('topRight');
+            }else if(result.match ==="Match already finished"){
+                openNotificationMatchErrorEnd('topRight');
+            }
+        });
     }
 
     const choosePaper = () => {
         const id = window.location.pathname.split("/match/").join("");
-        MatchsService.chooseMove(user.token, id, turns, "paper");
+        MatchsService.chooseMove(user.token, id, turns, "paper").then((result) =>{
+            if(result.user ==="move already given"){
+                openNotificationMatchErrorMoveAlready('topRight');
+            }else if(result.match ==="Match already finished"){
+                openNotificationMatchErrorEnd('topRight');
+            }
+        })
     }
 
     const chooseScissors = () => {
         const id = window.location.pathname.split("/match/").join("");
-        MatchsService.chooseMove(user.token, id, turns, "scissors");
+        MatchsService.chooseMove(user.token, id, turns, "scissors").then((result) =>{
+            if(result.user ==="move already given"){
+                openNotificationMatchErrorMoveAlready('topRight');
+            }else if(result.match ==="Match already finished"){
+                openNotificationMatchErrorEnd('topRight');
+            }
+        });
     }
 
     return (
         <div class="container">
+            {contextHolder}
             <h1>Match</h1>
             <Divider/>
             {

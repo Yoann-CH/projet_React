@@ -49,9 +49,6 @@ const AuthUserForm = ({login = false}) => {
       }
     }
   }
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
   return (
     <Form
       name="basic"
@@ -65,7 +62,6 @@ const AuthUserForm = ({login = false}) => {
         remember: true,
       }}
       onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
       {contextHolder}
