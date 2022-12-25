@@ -4,7 +4,7 @@ import { Button } from 'antd';
 import { Link } from "react-router-dom";
 import "../../App.css";
 
-const MatchesMenu = () => {
+const MatchsMenu = () => {
 
     const [user, setUser] = useState({});
 
@@ -17,11 +17,11 @@ const MatchesMenu = () => {
         user === null ?(    
             <div></div>
         ) : (
-            <Link to={"/matches"} class="matches-menu">
-              <Button type='primary' shape="round" size={'large'}>Matches</Button>
+            <Link to={"/matchs"} class="matchs-menu">
+              <Button type='primary' shape="round" size={'large'}>Matchs</Button>
             </Link>
         )
     )
 }
 
-export default MatchesMenu;
+export default MatchsMenu;

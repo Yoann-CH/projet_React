@@ -1,18 +1,18 @@
 import "../../App.css";
 import { Divider, Spin, Card, Row, Col, List } from 'antd';
 import { useState,useEffect } from "react";
-import MatchesService from "../../services/MatchesService";
+import MatchsService from "../../services/MatchsService";
 
 const Match = () => {
     const [turns, setTurns] = useState(1);
-    const [match, setMatches] = useState({});
+    const [match, setMatchs] = useState({});
     const user = JSON.parse(localStorage.getItem('user'));
     const [loading, setLoading] = useState(true);
 
     useEffect(() =>{
         const id = window.location.pathname.split("/match/").join("");
-        MatchesService.getMatch(user.token, id).then((result =>{
-            setMatches(result);
+        MatchsService.getMatch(user.token, id).then((result =>{
+            setMatchs(result);
             if(result.user2){
                 setLoading(false);
                 if(result.turns.length === 0){
@@ -30,19 +30,17 @@ const Match = () => {
 
     const chooseRock = () => {
         const id = window.location.pathname.split("/match/").join("");
-        MatchesService.chooseMove(user.token, id, turns, "rock");
+        MatchsService.chooseMove(user.token, id, turns, "rock");
     }
-
-    console.log(match);
 
     const choosePaper = () => {
         const id = window.location.pathname.split("/match/").join("");
-        MatchesService.chooseMove(user.token, id, turns, "paper");
+        MatchsService.chooseMove(user.token, id, turns, "paper");
     }
 
     const chooseScissors = () => {
         const id = window.location.pathname.split("/match/").join("");
-        MatchesService.chooseMove(user.token, id, turns, "scissors");
+        MatchsService.chooseMove(user.token, id, turns, "scissors");
     }
 
     return (
@@ -57,22 +55,23 @@ const Match = () => {
                 spinning={loading}>
                     <div class="turn-container" >
                         {
-                            match.winner ?(<h2>Le grans gagnant est {match.winner.username}</h2>) : (<p>Choisissez votre coup puis attendez votre adversaire.</p>)
+                            match.winner === undefined ?(<p class="text-align">Choisissez votre coup puis attendez votre adversaire.</p>) : 
+                            match.winner !== null ?(<h2 class="text-align">Le grand gagnant est {match.winner.username}</h2>) : (<h2 class="text-align">Egalité</h2>)
                         }
                         <Row gutter={[16, 16]} class="card-container">
-                            <Col span={8} class="turn">
-                                <Card class="card" title="Pierre" onClick={chooseRock}>
+                            <Col span={8}>
+                                <Card class="card" bodyStyle={{cursor:'pointer'}} title="Pierre" hoverable="true" onClick={chooseRock}>
                                     <div class="rock"></div>
                                 </Card>
                             </Col>
-                            <Col span={8} class="turn">
-                                <Card class="card" title="Papier" onClick={choosePaper}>
+                            <Col span={8}>
+                                <Card class="card" bodyStyle={{cursor:'pointer'}} title="Papier" hoverable="true" onClick={choosePaper}>
                                     <div class="paper"></div>
                                 </Card>
                             </Col>
 
-                            <Col span={8} class="turn">
-                                <Card class="card" title="Ciseaux" onClick={chooseScissors}>
+                            <Col span={8}>
+                                <Card class="card" bodyStyle={{cursor:'pointer'}} title="Ciseaux" hoverable="true" onClick={chooseScissors}>
                                     <div class="scissors"></div>
                                 </Card>
                             </Col>
@@ -90,9 +89,9 @@ const Match = () => {
                                         item.winner ?(<List.Item>
                                             <Card title={"Manche "+(index+1)}>
                                                 {
-                                                    item.winner === "draw" ?(<>Egalité</>) :
-                                                    item.winner === "user1" ?(<>Gagnant: {match.user1.username}<br/></>) :
-                                                    (<>Gagnant: {match.user2.username}<br/></>)
+                                                    item.winner === "draw" ?(<h3>Egalité</h3>) :
+                                                    item.winner === "user1" ?(<h3>Gagnant: {match.user1.username}</h3>) :
+                                                    (<h3>Gagnant: {match.user2.username}<br/></h3>)
                                                 }
                                                 Coup joueur 1: {item.user1}<br/>
                                                 Coup joueur 2: {item.user2}<br/>

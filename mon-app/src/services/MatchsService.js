@@ -1,7 +1,7 @@
 const API_URL = "http://fauques.freeboxos.fr:3000/matches";
 
-class MatchesService {
-    getAllMatches(token) {
+class MatchsService {
+    getAllMatchs(token) {
         return fetch(API_URL, {
             method: 'GET',
             headers: {
@@ -47,4 +47,4 @@ class MatchesService {
 
 }
 
-export default new MatchesService();
+export default new MatchsService();
