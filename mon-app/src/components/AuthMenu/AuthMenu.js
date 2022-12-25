@@ -35,7 +35,7 @@ const AuthMenu = ({reloadToken}) => {
                 </Space>
             </div>
         ) : (
-            <Link class="auth-menu">
+            <Link class="auth-menu" to={"/login"}>
                 <Button type='primary' shape="round" size={'large'} onClick={BtnLogout}>Déconnexion</Button>
             </Link>
         )

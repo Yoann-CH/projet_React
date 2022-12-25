@@ -66,12 +66,12 @@ const AuthUserForm = ({login = false}) => {
     >
       {contextHolder}
       <Form.Item
-        label="Username"
+        label="Pseudo"
         name="username"
         rules={[
           {
             required: true,
-            message: 'Please input your username!',
+            message: 'Entrez un pseudo!',
           },
         ]}
       >
@@ -79,12 +79,12 @@ const AuthUserForm = ({login = false}) => {
       </Form.Item>
 
       <Form.Item
-        label="Password"
+        label="Mot de passe"
         name="password"
         rules={[
           {
             required: true,
-            message: 'Please input your password!',
+            message: 'Entrez un mot de passe!',
           },
         ]}
       >
